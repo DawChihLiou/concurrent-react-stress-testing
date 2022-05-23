@@ -1,15 +1,40 @@
 .container {
-  padding: 0 2rem;
+  padding: 0 1rem;
 }
 
 .main {
-  height: 100vh;
+  position: relative;
+  height: calc(100vh - 86px);
   padding: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.inputContainer {
+  position: absolute;
+  top: 2rem;
+  margin: 0 auto;
+  z-index: 2;
+  width: 20rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.75rem 2.75rem;
+  font-size: 1rem;
+  background-color: rgba(52, 52, 52, 0.5);
+  color: #fff;
+  border: 0;
+  border-radius: 1rem;
+}
+
+.inputContainer span {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
 }
 
 .footer {

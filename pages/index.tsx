@@ -2,42 +2,63 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import { Canvas } from '@react-three/fiber';
-import Sphere from '../components/sphere';
-
-const USER_CONNECTIONS = gql`
-  query GetUserConnections {
-    user(login: "DawChihLiou") {
-      name
-      avatarUrl
-      bio
-      url
-      login
-      following(first: 100) {
-        nodes {
-          name
-          avatarUrl
-          bio
-          url
-          login
-        }
-      }
-      followers(first: 100) {
-        nodes {
-          name
-          avatarUrl
-          bio
-          url
-          login
-        }
-      }
-    }
-  }
-`;
+import Sphere from '../components/Sphere';
+import Tube from '../components/Tube';
+import { useEffect, useState, ChangeEvent, useTransition } from 'react';
+import { OrbitControls } from '@react-three/drei';
+import {
+  UserConnectionsQuery,
+  USER_CONNECTIONS,
+} from '../services/userConnections';
 
 const Home: NextPage = () => {
-  const { loading, error, data } = useQuery(USER_CONNECTIONS);
+  const [username, setUsername] = useState<string>('');
+  const [isPending, startTransition] = useTransition();
+  const [fetchUserConnections, { data }] = useLazyQuery<UserConnectionsQuery>(
+    USER_CONNECTIONS,
+  );
+  const [coords, setCoords] = useState<{
+    origin: number[];
+    destinations: number[][];
+  }>({ origin: [], destinations: [] });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUsername(value);
+    startTransition(() => {
+      if (value === '') {
+        return;
+      }
+      fetchUserConnections({ variables: { login: value } });
+    });
+  };
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    const origin = data.user.location || '';
+    const destinations = [
+      ...(data.user.followers?.nodes.map((n) => n.location || '') ?? []),
+      ...(data.user.following?.nodes.map((n) => n.location || '') ?? []),
+    ];
+
+    fetch('/api/coordinates', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        origin,
+        destinations,
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setCoords(json);
+      });
+  }, [data]);
 
   return (
     <div className={styles.container}>
@@ -48,22 +69,43 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
+        <div className={styles.inputContainer}>
+          <input
+            onChange={handleChange}
+            value={username}
+            className={styles.input}
+            placeholder="Enter GitHub username"
+          />
+          <span role="img" aria-label="Telescope">
+            🔭
+          </span>
+        </div>
         <Canvas>
+          <OrbitControls />
           <hemisphereLight args={['#ffffff', '#ffffff', 3]} />
           <Sphere position={[0, 0, 0]} />
+          <mesh>
+            {coords.destinations.map((coord, i) => (
+              <Tube
+                key={`${coords.toString()}-${i}`}
+                coords={[...coords.origin, ...coord]}
+              />
+            ))}
+          </mesh>
         </Canvas>
       </main>
 
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://dawchihliou.github.io"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          Build with{' '}
+          <span role="img" area-label="orange heart">
+            🧡
+          </span>{' '}
+          by Daw-Chih Liou
         </a>
       </footer>
     </div>
