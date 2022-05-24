@@ -1,7 +1,8 @@
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
+import { memo } from 'react';
 
-export default function Sphere(props: JSX.IntrinsicElements['mesh']) {
+function Sphere(props: JSX.IntrinsicElements['mesh']) {
   const texture = useLoader(TextureLoader, 'https://i.imgur.com/45naBE9.jpg');
 
   return (
@@ -11,3 +12,5 @@ export default function Sphere(props: JSX.IntrinsicElements['mesh']) {
     </mesh>
   );
 }
+
+export default memo(Sphere);

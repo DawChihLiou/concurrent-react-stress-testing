@@ -1,4 +1,4 @@
-import { useRef, useEffect, useTransition, useState } from 'react';
+import { useRef, useEffect, useTransition, useState, memo } from 'react';
 import { BufferGeometry, MathUtils, Float32BufferAttribute } from 'three';
 import randomColor from 'randomcolor';
 
@@ -6,7 +6,7 @@ type ParticleProps = {
   trigger?: string | number | boolean;
 };
 
-export default function Particle({ trigger }: ParticleProps) {
+function Particle({ trigger }: ParticleProps) {
   const geometry = useRef<BufferGeometry>(null);
   const [color, setColor] = useState('#888888');
   const [, startTransition] = useTransition();
@@ -41,3 +41,5 @@ export default function Particle({ trigger }: ParticleProps) {
     </mesh>
   );
 }
+
+export default memo(Particle);

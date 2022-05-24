@@ -1,5 +1,6 @@
 import { calculateSpline } from '../utils/geo';
 import { AdditiveBlending } from 'three';
+import { memo } from 'react';
 
 const CURVE_SEGMENTS = 32;
 const TUBE_RADIUS_SEGMENTS = 2;
@@ -11,7 +12,7 @@ type TubeProps = {
   coords: number[];
 };
 
-export default function Tube({ coords }: TubeProps) {
+function Tube({ coords }: TubeProps) {
   const { spline } = calculateSpline(coords);
 
   return (
@@ -35,3 +36,5 @@ export default function Tube({ coords }: TubeProps) {
     </mesh>
   );
 }
+
+export default memo(Tube);

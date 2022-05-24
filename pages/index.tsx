@@ -13,6 +13,7 @@ import {
   useCallback,
   Suspense,
   KeyboardEvent,
+  useDeferredValue,
 } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import {
@@ -34,6 +35,8 @@ const Home: NextPage = () => {
     origin: number[];
     destinations: { id: string; coordinates: number[] }[];
   }>({ origin: [], destinations: [] });
+
+  const deferredLocs = useDeferredValue(locs);
 
   const [, startTransition] = useTransition();
 
@@ -154,10 +157,10 @@ const Home: NextPage = () => {
           <Sphere position={[0, 0, 0]} />
           <Suspense fallback={null}>
             <mesh>
-              {locs.destinations.map((dest, i) => (
+              {deferredLocs.destinations.map((dest, i) => (
                 <Tube
                   key={dest.id}
-                  coords={[...locs.origin, ...dest.coordinates]}
+                  coords={[...deferredLocs.origin, ...dest.coordinates]}
                 />
               ))}
             </mesh>
