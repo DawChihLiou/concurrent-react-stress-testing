@@ -1,11 +1,7 @@
 import { gql } from '@apollo/client';
 
 interface User {
-  name: string;
-  avatarUrl: string;
-  bio: string;
-  url: string;
-  login: string;
+  id: string;
   location: string | null;
 }
 
@@ -25,29 +21,17 @@ export interface UserConnectionsQuery {
 export const USER_CONNECTIONS = gql`
   query GetUserConnections($login: String!) {
     user(login: $login) {
-      name
-      avatarUrl
-      bio
-      url
-      login
+      id
       location
       following(first: 100) {
         nodes {
-          name
-          avatarUrl
-          bio
-          url
-          login
+          id
           location
         }
       }
       followers(first: 100) {
         nodes {
-          name
-          avatarUrl
-          bio
-          url
-          login
+          id
           location
         }
       }

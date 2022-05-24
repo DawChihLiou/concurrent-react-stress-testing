@@ -1,5 +1,5 @@
 .container {
-  padding: 0 1rem;
+  padding: 0;
 }
 
 .main {
@@ -23,7 +23,7 @@
 
 .input {
   width: 100%;
-  padding: 0.75rem 2.75rem;
+  padding: 1rem 1rem;
   font-size: 1rem;
   background-color: rgba(52, 52, 52, 0.5);
   color: #fff;
@@ -31,16 +31,55 @@
   border-radius: 1rem;
 }
 
-.inputContainer span {
+.inputContainer button {
   position: absolute;
-  top: 0.75rem;
-  left: 1rem;
+  top: 0.65rem;
+  right: 1rem;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(64, 64, 64, 0.75);
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  transition: background-color 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputContainer button:hover {
+  background-color: rgba(72, 72, 72, 1);
+}
+
+.inputContainer button > span {
+  display: block;
+}
+
+.animate {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(64, 64, 64, 0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+  }
+
+  70% {
+    background-color: rgba(72, 72, 72, 1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    background-color: rgba(64, 64, 64, 0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
 
 .footer {
   display: flex;
   flex: 1;
-  padding: 2rem 0;
+  padding: 2rem 1rem;
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
