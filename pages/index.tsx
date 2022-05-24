@@ -3,7 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { useLazyQuery } from '@apollo/client';
 import { Canvas } from '@react-three/fiber';
-import Sphere from '../components/Spherex';
+import Sphere from '../components/Sphere';
 import Tube from '../components/Tube';
 import {
   useEffect,
