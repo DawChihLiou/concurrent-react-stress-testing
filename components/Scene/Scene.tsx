@@ -14,7 +14,7 @@ type CurveCoordinates = {
 };
 
 type SceneProps = {
-  curveCoordinates: CurveCoordinates;
+  curveCoordinates?: CurveCoordinates;
   vertices?: number[];
 };
 
@@ -24,14 +24,16 @@ function Scene({ vertices = [], curveCoordinates }: SceneProps) {
       <OrbitControls />
       <hemisphereLight args={['#ffffff', '#ffffff', 3]} />
       <Sphere position={[0, 0, 0]} />
-      <mesh>
-        {curveCoordinates.destinations.map((dest) => (
-          <Tube
-            key={dest.id}
-            coords={[...curveCoordinates.origin, ...dest.coordinates]}
-          />
-        ))}
-      </mesh>
+      {curveCoordinates && (
+        <mesh>
+          {curveCoordinates.destinations.map((dest) => (
+            <Tube
+              key={dest.id}
+              coords={[...curveCoordinates.origin, ...dest.coordinates]}
+            />
+          ))}
+        </mesh>
+      )}
       <Particles vertices={vertices} />
     </Canvas>
   );

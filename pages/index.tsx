@@ -13,9 +13,9 @@ import { computeCoordinates } from '../utils/geo';
 
 type FastSearchBarProps = {
   defaultValue: string;
-  loading?: boolean;
+  loading: boolean;
   onChange: (value: string) => void;
-  onSearch?: () => void;
+  onSearch: () => void;
 };
 
 function FastSearchBar({
