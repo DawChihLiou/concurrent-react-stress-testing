@@ -1,4 +1,4 @@
-import { calculateSpline } from '../utils/geo';
+import { calculateSpline } from '../../utils/geo';
 import { AdditiveBlending } from 'three';
 import { memo } from 'react';
 

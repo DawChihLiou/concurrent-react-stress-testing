@@ -1,0 +1,62 @@
+.container {
+  position: absolute;
+  top: 2rem;
+  margin: 0 auto;
+  z-index: 2;
+  width: 20rem;
+}
+
+.input {
+  width: 100%;
+  padding: 1rem 1rem;
+  font-size: 1rem;
+  background-color: rgba(52, 52, 52, 0.5);
+  color: #fff;
+  border: 0;
+  border-radius: 1rem;
+}
+
+.container button {
+  position: absolute;
+  top: 0.65rem;
+  right: 1rem;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(64, 64, 64, 0.75);
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  transition: background-color 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container button:hover {
+  background-color: rgba(72, 72, 72, 1);
+}
+
+.container button > span {
+  display: block;
+}
+
+.animate {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(64, 64, 64, 0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.5);
+  }
+
+  70% {
+    background-color: rgba(72, 72, 72, 1);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    background-color: rgba(64, 64, 64, 0.75);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}

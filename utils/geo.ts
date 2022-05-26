@@ -1,6 +1,7 @@
 import { Vector3, CubicBezierCurve3 } from 'three';
 import { clamp } from './math';
 import { geoInterpolate } from 'd3-geo';
+import { MathUtils } from 'three';
 
 const DEGREE_TO_RADIAN = Math.PI / 180;
 
@@ -37,4 +38,18 @@ export function calculateSpline([
     end,
     spline: new CubicBezierCurve3(start, mid1, mid2, end),
   };
+}
+
+export function computeCoordinates(multiplier: number = 1) {
+  const vertices = [];
+
+  for (let i = 0; i < 100_000 * multiplier; i++) {
+    const x = MathUtils.randFloatSpread(2000);
+    const y = MathUtils.randFloatSpread(2000);
+    const z = MathUtils.randFloatSpread(2000);
+
+    vertices.push(x, y, z);
+  }
+
+  return vertices;
 }
