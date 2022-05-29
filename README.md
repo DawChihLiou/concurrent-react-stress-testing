@@ -1,4 +1,4 @@
-# six-degrees
+# Concurrent React Stress Testing
 
 Stress Testing for React 18's Concurrent Features.
 
