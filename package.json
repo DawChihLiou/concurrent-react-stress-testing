@@ -18,8 +18,8 @@
     "hammerjs": "^2.0.8",
     "next": "12.1.6",
     "randomcolor": "^0.6.2",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "three": "^0.140.2"
   },
   "devDependencies": {

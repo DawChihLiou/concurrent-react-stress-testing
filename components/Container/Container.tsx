@@ -21,7 +21,7 @@ const Container = ({ children }: PropsWithChildren<{}>) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          {'Build with 💙 by Daw-Chih Liou'}
+          {'Built with 💙 by Daw-Chih Liou'}
         </a>
       </footer>
     </div>
